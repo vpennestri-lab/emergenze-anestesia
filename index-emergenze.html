@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergenze in Anestesia</title>
+<style>
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --ink:#1c2321; --ink-soft:#4d5652; --line:#dedad0;
+  --mh:#8a4b12; --mh-bg:#f5e8d8;
+  --last:#7a2e50; --last-bg:#f3e2ea;
+  --ana:#1f6b4a; --ana-bg:#e0f0e7;
+  --ok:#2f6d3b; --ok-bg:#e7f0e6;
+  --caution:#a3641c; --caution-bg:#f6ecdd;
+  --avoid:#a5322c; --avoid-bg:#f7e7e5;
+  --radius:10px;
+  --serif: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "SF Mono", "Menlo", monospace;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;padding-bottom:60px;}
+a{color:inherit;}
+header.top{background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+.top-inner{max-width:980px;margin:0 auto;padding:18px 20px 0 20px;}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink-soft);margin:0 0 4px 0;}
+h1.title{font-family:var(--serif);font-weight:600;font-size:clamp(22px,4.5vw,30px);margin:0 0 4px 0;letter-spacing:-.01em;}
+p.subtitle{margin:0 0 14px 0;color:var(--ink-soft);font-size:14.5px;max-width:640px;}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+nav.tabs::-webkit-scrollbar{display:none;}
+nav.tabs button{flex:0 0 auto;background:none;border:none;border-bottom:3px solid transparent;padding:10px 14px 12px 14px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;white-space:nowrap;}
+nav.tabs button.active{color:var(--ink);border-bottom-color:var(--ink);}
+nav.tabs button:hover{color:var(--ink);}
+main{max-width:980px;margin:0 auto;padding:24px 20px 0 20px;}
+section.view{display:none;}
+section.view.active{display:block;}
+.section-head{margin-bottom:18px;}
+.section-head h2{font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 6px 0;}
+.section-head p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:680px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px;}
+.drug-card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;}
+.drug-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;}
+.drug-name{font-family:var(--serif);font-weight:600;font-size:17px;}
+.drug-tag{font-size:11.5px;color:var(--ink-soft);font-family:var(--mono);}
+.chev{font-size:13px;color:var(--ink-soft);transition:transform .15s ease;flex:0 0 auto;}
+.drug-card.open .chev{transform:rotate(90deg);}
+.drug-body{display:none;padding:0 16px 16px 16px;border-top:1px solid var(--line);}
+.drug-card.open .drug-body{display:block;padding-top:14px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+@media (max-width:560px){.grid2{grid-template-columns:1fr;}}
+.note{font-size:13.5px;color:var(--ink-soft);margin-top:8px;line-height:1.55;}
+.note strong{color:var(--ink);}
+.pill{display:inline-block;font-size:11px;font-family:var(--mono);padding:2px 8px;border-radius:20px;background:var(--ok-bg);color:var(--ok);margin-right:6px;margin-bottom:4px;}
+.pill.caution{background:var(--caution-bg);color:var(--caution);}
+.pill.avoid{background:var(--avoid-bg);color:var(--avoid);}
+.tbl-wrap{overflow-x:auto;margin-bottom:16px;border:1px solid var(--line);border-radius:var(--radius);}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px;}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+th{background:var(--bg);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);font-weight:600;}
+tr:last-child td{border-bottom:none;}
+td.hi{font-weight:600;}
+.callout{border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:14px;line-height:1.55;}
+.callout.avoid{background:var(--avoid-bg);border:1px solid #e2b6b2;}
+.callout.avoid .lbl{color:var(--avoid);}
+.callout.ok{background:var(--ok-bg);border:1px solid #bcd8bb;}
+.callout.ok .lbl{color:var(--ok);}
+.callout.mh{background:var(--mh-bg);border:1px solid #e6c99e;}
+.callout.mh .lbl{color:var(--mh);}
+.callout.last{background:var(--last-bg);border:1px solid #e0c1d3;}
+.callout.last .lbl{color:var(--last);}
+.callout.ana{background:var(--ana-bg);border:1px solid #b9dcc7;}
+.callout.ana .lbl{color:var(--ana);}
+.callout .lbl{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px;font-weight:700;}
+.tool{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:20px;}
+.tool h3{font-family:var(--serif);font-size:17px;margin:0 0 12px 0;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:12px;font-family:var(--mono);color:var(--ink-soft);margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em;}
+select,input[type=number]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);font-size:14.5px;color:var(--ink);font-family:var(--sans);}
+select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234d5652' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;}
+.result{margin-top:14px;}
+.hidden{display:none !important;}
+footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:12.5px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <p class="eyebrow">Riferimento clinico &mdash; Anestesia &amp; Terapia Intensiva</p>
+    <h1 class="title">Emergenze in Anestesia</h1>
+    <p class="subtitle">Diagnosi e trattamento di tre emergenze acute perioperatorie: ipertermia maligna, tossicit&agrave; sistemica da anestetici locali e anafilassi.</p>
+    <nav class="tabs" id="tabs">
+      <button data-view="home" class="active">Panoramica</button>
+      <button data-view="mh">Ipertermia maligna</button>
+      <button data-view="last">Tossicit&agrave; LA (LAST)</button>
+      <button data-view="ana">Anafilassi</button>
+      <button data-view="refs">Bibliografia</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="view active" id="view-home">
+  <div class="section-head">
+    <h2>Tre emergenze, tre presentazioni diverse</h2>
+    <p>Ipertermia maligna, tossicit&agrave; da anestetici locali e anafilassi sono le tre emergenze farmacologiche acute pi&ugrave; caratteristiche della sala operatoria: rare, potenzialmente fatali, e ciascuna con un trattamento specifico che va conosciuto a memoria perch&eacute; il tempo di reazione &egrave; decisivo.</p>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Emergenza</th><th>Presentazione tipica</th><th>Trattamento cardine</th></tr></thead>
+      <tbody>
+        <tr><td class="hi">Ipertermia maligna</td><td>Ipercapnia inspiegata, tachicardia, rigidit&agrave; muscolare, febbre (spesso tardiva)</td><td>Dantrolene EV 2&ndash;2,5 mg/kg, sospensione del trigger, raffreddamento</td></tr>
+        <tr><td class="hi">Tossicit&agrave; da LA (LAST)</td><td>Prodromi neurologici (intorpidimento periorale, tinnito) poi convulsioni e/o collasso cardiovascolare</td><td>Emulsione lipidica 20% EV, ACLS modificato</td></tr>
+        <tr><td class="hi">Anafilassi</td><td>Ipotensione refrattaria e/o broncospasmo, spesso con eritema/orticaria, entro minuti da un farmaco/lattice/clorexidina</td><td>Adrenalina IM o EV titolata, fluidi EV aggressivi</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout avoid">
+    <span class="lbl">Diagnosi differenziale</span>
+    Le tre condizioni, e altre cause di instabilit&agrave; acuta intraoperatoria (emorragia occulta, pneumotorace iperteso, embolia polmonare/gassosa/adiposa, reazione trasfusionale, ischemia miocardica, guasto del circuito anestesiologico), possono presentarsi in modo simile: instabilit&agrave; emodinamica improvvisa. La tempistica rispetto alla somministrazione di un farmaco/trigger specifico &egrave; spesso l'indizio pi&ugrave; utile per orientare la diagnosi in acuto.
+  </div>
+</section>
+
+<!-- ============ MH ============ -->
+<section class="view" id="view-mh">
+  <div class="section-head">
+    <h2>Ipertermia maligna</h2>
+    <p>Disordine farmacogenetico del muscolo scheletrico (mutazione RYR1 nella maggioranza dei casi, talvolta CACNA1S) che causa una crisi ipermetabolica potenzialmente fatale all'esposizione a farmaci trigger specifici. Linee guida internazionali consolidate (European Malignant Hyperthermia Group, aggiornate al 2024).</p>
+  </div>
+  <div class="callout mh">
+    <span class="lbl">Regola pratica</span>
+    Evitare <strong>tutti</strong> gli alogenati e la <strong>succinilcolina</strong>: tutto il resto (endovenosi, curari non depolarizzanti, oppioidi, anestetici locali, N&#8322;O) &egrave; considerato non trigger e utilizzabile liberamente. Non serve dantrolene profilattico.
+  </div>
+  <div class="section-head" style="margin-top:6px;"><h2>Segni precoci di sospetto</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Aumento inspiegato della CO&#8322; di fine espirazione nonostante ventilazione invariata (spesso il primo segno), tachicardia sproporzionata, rigidit&agrave; del massetere dopo succinilcolina, rigidit&agrave; muscolare generalizzata, acidosi metabolica/respiratoria mista; la febbre &egrave; spesso un segno <strong>tardivo</strong>, non va attesa per iniziare il trattamento.</p></div>
+  <div class="section-head"><h2>Preoperatorio</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Anamnesi personale/familiare di complicanze anestesiologiche o morte improvvisa perioperatoria inspiegata; CK basale; considerare test di contrattura in vitro (IVCT/CHCT) o test genetico RYR1 nei casi sospetti; pianificare tecnica trigger-free (TIVA &plusmn; loco-regionale); preparare la postazione anestesiologica libera da residui di alogenato (alti flussi di lavaggio prolungato oppure filtri a carboni attivi dedicati, secondo le linee guida EMHG 2024, che ne permettono un utilizzo pi&ugrave; rapido rispetto al lavaggio tradizionale); la chirurgia in day-surgery &egrave; accettabile con tecnica trigger-free e adeguato monitoraggio post-operatorio.</p></div>
+  <div class="section-head"><h2>Farmaci trigger: da evitare sempre</h2></div>
+  <div id="mh-avoid-list"></div>
+  <div class="section-head"><h2>Farmaci non trigger: sicuri</h2></div>
+  <div id="mh-safe-list"></div>
+  <div class="section-head"><h2>Gestione della crisi acuta</h2></div>
+  <div class="callout mh">
+    <span class="lbl">Protocollo di emergenza</span>
+    <strong>1.</strong> Interrompere immediatamente il farmaco trigger, chiamare aiuto, iperventilare con O&#8322; 100% ad alto flusso.<br>
+    <strong>2.</strong> <strong>Dantrolene EV 2&ndash;2,5 mg/kg in bolo</strong> (EMHG 2024), ripetibile a 1 mg/kg ogni 5&ndash;10 min fino a controllo dei sintomi (dose cumulativa fino a 10 mg/kg).<br>
+    <strong>3.</strong> Raffreddamento attivo (liquidi EV freddi, superficie corporea), evitando l'ipotermia iatrogena.<br>
+    <strong>4.</strong> Trattare l'iperpotassiemia (calcio, glucosio/insulina, bicarbonato) e le aritmie con farmaci standard, <strong>evitando i calcio-antagonisti</strong> (interazione pericolosa con il dantrolene).<br>
+    <strong>5.</strong> Monitorare emogasanalisi, CK, mioglobina, coagulazione (rischio CID); ricovero in Terapia Intensiva per almeno 24h per il rischio di recrudescenza.<br>
+    Dopo l'evento: referral per test diagnostico (contrattura in vitro/genetica) del paziente e dei familiari.
+  </div>
+</section>
+
+<!-- ============ LAST ============ -->
+<section class="view" id="view-last">
+  <div class="section-head">
+    <h2>Tossicit&agrave; sistemica da anestetici locali (LAST)</h2>
+    <p>Complicanza rara ma potenzialmente fatale, da concentrazione plasmatica eccessiva di anestetico locale: dall'inavvertita iniezione intravascolare al superamento della dose massima cumulativa. Il quadro clinico coinvolge sistema nervoso centrale e sistema cardiovascolare.</p>
+  </div>
+  <div class="callout avoid">
+    <span class="lbl">Principio guida</span>
+    Il trattamento non va mai ritardato in attesa di conferma diagnostica: davanti a un paziente che diventa instabile (neurologicamente o emodinamicamente) dopo un blocco con anestetico locale, sospettare LAST e iniziare subito il protocollo. L'esordio pu&ograve; essere immediato o ritardato fino a 30&ndash;60 minuti dall'iniezione.
+  </div>
+  <div class="section-head" style="margin-top:6px;"><h2>Fattori di rischio</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Et&agrave; estreme, basso peso/massa magra, cardiopatia, epatopatia o nefropatia, gravidanza, acidosi/ipossia (potenziano la tossicit&agrave;), sede di iniezione ad alto assorbimento vascolare (intercostale &gt; caudale &gt; epidurale &gt; plesso brachiale &gt; sciatico/femorale &gt; sottocutaneo), iniezione intravascolare inavvertita, dosi ripetute o cumulative da blocchi multipli nello stesso paziente, uso di anestetici ad alta potenza/lunga durata (bupivacaina).</p></div>
+  <div class="section-head"><h2>Presentazione clinica</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Prodromi (SNC, fase eccitatoria)</td><td>Intorpidimento periorale, sapore metallico, tinnito, disturbi visivi, agitazione/confusione, twitching muscolare</td></tr>
+      <tr><td class="hi">Progressione (SNC)</td><td>Convulsioni tonico-cloniche</td></tr>
+      <tr><td class="hi">Cardiovascolare (fase eccitatoria)</td><td>Ipertensione, tachicardia, aritmie ventricolari</td></tr>
+      <tr><td class="hi">Cardiovascolare (fase depressiva)</td><td>Bradicardia, blocchi di conduzione, ipotensione, collasso cardiovascolare, arresto cardiaco (la bupivacaina pu&ograve; dare FV/TV refrattaria per il blocco "fast-in slow-out" del canale del sodio)</td></tr>
+      <tr><td class="hi">Presentazione atipica</td><td>Collasso cardiovascolare isolato, senza prodromi neurologici evidenti: frequente sotto anestesia generale/sedazione profonda, dove il prodromo &egrave; mascherato &mdash; mantenere alto indice di sospetto</td></tr>
+    </tbody></table>
+  </div>
+  <div class="section-head"><h2>Prevenzione</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Usare la dose/concentrazione minima efficace; iniettare in modo incrementale con aspirazioni frequenti; utilizzare la guida ecografica per ridurre il rischio di iniezione intravascolare; considerare una dose test con adrenalina quando appropriato (un aumento della frequenza cardiaca suggerisce iniezione intravascolare); <strong>calcolare sempre la dose massima prima di iniettare</strong>, basandola sul peso magro/ideale nei pazienti obesi; ricordare che le dosi sono <strong>cumulative</strong> se si eseguono pi&ugrave; blocchi nello stesso paziente.</p></div>
+  <div class="section-head"><h2>Trattamento (ASRA LAST Checklist 2020)</h2></div>
+  <div class="callout avoid">
+    <span class="lbl">Protocollo di emergenza</span>
+    <strong>1. Fermare l'iniezione</strong>, chiamare aiuto, considerare l'allerta precoce del centro pi&ugrave; vicino con possibilit&agrave; di circolazione extracorporea (CEC) nei casi severi.<br>
+    <strong>2. Vie aeree</strong>: O&#8322; 100%, gestione avanzata se necessario; evitare ipossia e acidosi, che potenziano la tossicit&agrave;.<br>
+    <strong>3. Controllo delle convulsioni</strong>: benzodiazepine di prima scelta; evitare o limitare il propofol in presenza di instabilit&agrave; emodinamica (non sostituisce l'emulsione lipidica e peggiora la depressione cardiaca).<br>
+    <strong>4. Aritmie/arresto cardiaco</strong>: ACLS standard con modifiche &mdash; ridurre i boli di adrenalina a &le;1 mcg/kg, evitare vasopressina, calcio-antagonisti, beta-bloccanti e altri anestetici locali come antiaritmici.<br>
+    <strong>5. Emulsione lipidica EV 20%</strong> (trattamento cardine, iniziare precocemente ai primi segni sistemici significativi):
+    <div class="tbl-wrap" style="margin-top:8px;margin-bottom:0;">
+      <table><tbody>
+        <tr><td class="hi">Peso &ge;70 kg</td><td>Bolo 100 mL in 2&ndash;3 min, poi infusione 200&ndash;250 mL in 15&ndash;20 min</td></tr>
+        <tr><td class="hi">Peso &lt;70 kg</td><td>Bolo 1,5 mL/kg (peso magro) in 2&ndash;3 min, poi infusione 0,25 mL/kg/min</td></tr>
+        <tr><td class="hi">Instabilit&agrave; persistente</td><td>Ripetere il bolo 1&ndash;2 volte e raddoppiare la velocit&agrave; di infusione; limite superiore orientativo &sim;12 mL/kg</td></tr>
+      </tbody></table>
+    </div>
+    <strong>6. Sorveglianza post-evento</strong>: almeno 4&ndash;6h dopo un evento cardiovascolare, almeno 2h dopo un evento neurologico isolato (convulsione senza coinvolgimento cardiovascolare).
+  </div>
+  <div class="section-head"><h2>Calcolatore rapido: dose massima di anestetico locale</h2></div>
+  <div class="tool">
+    <h3>Calcola la dose massima</h3>
+    <div class="field">
+      <label for="last-drug">Anestetico locale</label>
+      <select id="last-drug"></select>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="last-weight">Peso del paziente (kg)</label>
+        <input type="number" id="last-weight" min="1" max="250" step="1" value="70">
+      </div>
+      <div class="field">
+        <label for="last-conc">Concentrazione della soluzione (%)</label>
+        <input type="number" id="last-conc" min="0.1" max="5" step="0.05" value="0.5">
+      </div>
+    </div>
+    <div class="field">
+      <label for="last-epi">Formulazione</label>
+      <select id="last-epi">
+        <option value="plain">Senza adrenalina</option>
+        <option value="epi">Con adrenalina</option>
+      </select>
+    </div>
+    <div class="result" id="last-result"></div>
+    <p class="note">Nei pazienti con obesit&agrave; significativa, calcolare il peso da usare sul <strong>peso magro/ideale</strong>, non sul peso corporeo reale, per gli anestetici locali (farmaci relativamente lipofili). Le dosi sono <strong>cumulative</strong> se si eseguono pi&ugrave; blocchi/infiltrazioni nello stesso paziente.</p>
+  </div>
+  <div class="section-head"><h2>Dosi massime di riferimento (adulto)</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Farmaco</th><th>Senza adrenalina</th><th>Con adrenalina (1:200.000)</th></tr></thead>
+      <tbody id="last-table-body"></tbody>
+    </table>
+  </div>
+  <div class="note">Valori di riferimento comunemente utilizzati nella pratica clinica adulta, concordanti tra fonti multiple (tabelle StatPearls/BJA Education, letteratura di farmacologia anestesiologica). Variazioni minori tra fonti sono normali; in caso di dubbio, usare il valore pi&ugrave; conservativo e verificare il foglietto illustrativo del prodotto specifico in uso.</div>
+</section>
+
+<!-- ============ ANAFILASSI ============ -->
+<section class="view" id="view-ana">
+  <div class="section-head">
+    <h2>Anafilassi in anestesia</h2>
+    <p>Reazione di ipersensibilit&agrave; sistemica grave, a esordio rapido, IgE-mediata o non IgE-mediata. In sala operatoria si presenta tipicamente come ipotensione refrattaria e/o broncospasmo, spesso senza i segni cutanei classici (che possono essere assenti o comparire tardivamente). Incidenza stimata 1:7.000&ndash;1:10.000 anestesie.</p>
+  </div>
+  <div class="callout ana">
+    <span class="lbl">Regola pratica</span>
+    Sospettare l'anafilassi ogni volta che compare instabilit&agrave; cardiovascolare o respiratoria significativa e inspiegata durante l'anestesia. L'<strong>adrenalina</strong> &egrave; il farmaco cardine e va somministrata precocemente: non ritardarla in attesa di segni cutanei, spesso assenti sotto anestesia generale.
+  </div>
+
+  <div class="section-head" style="margin-top:6px;"><h2>Cause pi&ugrave; frequenti (dati NAP6, Regno Unito)</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Antibiotici</td><td>&sim;47% dei casi &mdash; soprattutto teicoplanina, penicilline, vancomicina, cefuroxima</td></tr>
+      <tr><td class="hi">Curari (NMBA)</td><td>&sim;33% &mdash; sia depolarizzanti (succinilcolina) sia non depolarizzanti (es. rocuronio)</td></tr>
+      <tr><td class="hi">Clorexidina</td><td>&sim;9% &mdash; spesso sottovalutata come causa, presente in molti dispositivi e soluzioni antisettiche</td></tr>
+      <tr><td class="hi">Coloranti (es. blu di metilene/patent blue)</td><td>&sim;4,5%</td></tr>
+      <tr><td class="hi">Lattice, sugammadex</td><td>Meno frequenti ma in aumento come cause emergenti riconosciute</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="section-head"><h2>Gravit&agrave; clinica (classificazione di Ring e Messmer)</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Grado I</td><td>Segni cutaneo-mucosi isolati (eritema, orticaria, edema), senza compromissione emodinamica o respiratoria</td></tr>
+      <tr><td class="hi">Grado II</td><td>Compromissione multiorgano moderata: ipotensione e tachicardia lievi-moderate, tosse, difficolt&agrave; respiratoria, con o senza segni cutanei</td></tr>
+      <tr><td class="hi">Grado III</td><td>Compromissione severa, pericolo di vita: collasso cardiovascolare, tachicardia o bradicardia marcate, broncospasmo severo &mdash; presentazione pi&ugrave; comune tra le forme severe</td></tr>
+      <tr><td class="hi">Grado IV</td><td>Arresto cardiaco</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="section-head"><h2>Trattamento immediato</h2></div>
+  <div class="callout ana">
+    <span class="lbl">Algoritmo (Resuscitation Council UK per anestesisti, 2024)</span>
+    <strong>1.</strong> Rimuovere/sospendere l'agente causale sospetto; chiamare aiuto e annotare l'orario.<br>
+    <strong>2.</strong> Vie aeree/O&#8322; 100%; mantenere il paziente <strong>disteso con le gambe sollevate</strong> (mai seduto/eretto: rischio di arresto da svuotamento ventricolare) salvo predominanza respiratoria.<br>
+    <strong>3. Adrenalina</strong>, titolata in base alla via disponibile e alla gravit&agrave;:
+    <div class="tbl-wrap" style="margin-top:8px;margin-bottom:0;">
+      <table><tbody>
+        <tr><td class="hi">EV, paziente monitorato con accesso venoso (contesto anestesiologico tipico)</td><td>Boli titolati di 50 mcg (0,5 mL di adrenalina 1:10.000), ripetibili ogni 1&ndash;2 minuti secondo risposta</td></tr>
+        <tr><td class="hi">IM, se non ancora presente accesso venoso</td><td>0,5 mg (0,5 mL di adrenalina 1:1.000) nella faccia antero-laterale della coscia, ripetibile ogni 5 minuti</td></tr>
+        <tr><td class="hi">Anafilassi refrattaria (persistenza dopo 2 dosi adeguate)</td><td>Infusione continua di adrenalina; considerare glucagone se il paziente &egrave; in terapia beta-bloccante; supporto vasopressorio aggiuntivo; nei casi estremi, ECMO</td></tr>
+      </tbody></table>
+    </div>
+    <strong>4. Fluidi EV</strong> a boli rapidi (cristalloidi), spesso in volumi importanti per la marcata perdita di liquido nel terzo spazio da aumento della permeabilit&agrave; capillare.<br>
+    <strong>5. Broncospasmo persistente</strong>: broncodilatatori inalatori/EV come misura aggiuntiva, non sostitutiva dell'adrenalina.<br>
+    <strong>Antistaminici e corticosteroidi</strong>: trattamento di terza linea, utili solo sui sintomi cutanei; non devono mai ritardare o sostituire l'adrenalina. I corticosteroidi non sono pi&ugrave; raccomandati di routine, salvo asma di base scarsamente controllata o anafilassi refrattaria.
+  </div>
+
+  <div class="section-head"><h2>Diagnosi differenziale in acuto</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Emorragia occulta, pneumotorace iperteso, embolia polmonare/gassosa/adiposa, reazione trasfusionale acuta, tossicit&agrave; da anestetico locale (LAST), ischemia miocardica, tamponamento cardiaco, aritmie, guasto/malfunzionamento del circuito di ventilazione. L'ipotensione sproporzionata e refrattaria ai vasopressori, specie se associata a broncospasmo, orienta verso l'anafilassi.</p></div>
+
+  <div class="section-head"><h2>Conferma diagnostica e follow-up</h2></div>
+  <div class="card">
+    <p class="note" style="margin-top:0;"><strong>Triptasi sierica</strong>: marcatore acuto principale. Prelievo ideale entro 2 ore dall'esordio (T0), un secondo prelievo a 1&ndash;2 ore (T1) e un basale a distanza di almeno 24 ore (T2) per il confronto. Una triptasi basale persistentemente elevata (&ge;11,4 mcg/L) pu&ograve; suggerire una mastocitosi sottostante o un'iperalfa-triptasemia ereditaria, da approfondire.</p>
+    <p class="note">Ogni paziente con sospetta anafilassi perioperatoria va indirizzato a un <strong>ambulatorio allergologico dedicato</strong> per test cutanei (idealmente a 4&ndash;6 settimane dall'evento) e, dove disponibile, dosaggio di IgE specifiche (disponibili per succinilcolina, alcuni antibiotici, clorexidina, lattice e per il gruppo degli ioni ammonio quaternario dei curari). L'obiettivo &egrave; identificare l'agente responsabile ed evitarlo in future anestesie, documentando chiaramente l'allergia in cartella.</p>
+  </div>
+</section>
+
+<!-- ============ REFS ============ -->
+<section class="view" id="view-refs">
+  <div class="section-head"><h2>Bibliografia principale</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td><strong>Ipertermia maligna:</strong> Glahn KPE, et al. Recognition and management of a malignant hyperthermia crisis: updated 2024 guideline from the European Malignant Hyperthermia Group. Br J Anaesth. 2025;134:221-223.</td></tr>
+      <tr><td>Consensus guidelines on perioperative management of malignant hyperthermia suspected or susceptible patients. European Malignant Hyperthermia Group. Br J Anaesth. 2020.</td></tr>
+      <tr><td>Malignant Hyperthermia. StatPearls. NCBI Bookshelf. Aggiornato 2024-2025.</td></tr>
+      <tr><td><strong>Tossicit&agrave; da anestetici locali (LAST):</strong> Neal JM, Neal EJ, Weinberg GL. American Society of Regional Anesthesia and Pain Medicine Local Anesthetic Systemic Toxicity checklist: 2020 version. Reg Anesth Pain Med. 2020.</td></tr>
+      <tr><td>Local Anesthetic Recommended Doses (mg/kg). Table 1, in: Camfield AS, McCutchan A. Local Anesthetics in Children. StatPearls. Aggiornato 2023-2026.</td></tr>
+      <tr><td><strong>Anafilassi:</strong> Dodd A, et al. Emergency treatment of peri-operative anaphylaxis: Resuscitation Council UK algorithm for anaesthetists. Anaesthesia. 2024.</td></tr>
+      <tr><td>Harper NJN, et al. Anaesthesia, surgery, and life-threatening allergic reactions: epidemiology and clinical features of perioperative anaphylaxis in the 6th National Audit Project (NAP6). Br J Anaesth. 2018.</td></tr>
+      <tr><td>Perioperative anaphylaxis: pathophysiology, clinical presentation and management. BJA Education. 2019.</td></tr>
+      <tr><td>Emergency treatment of anaphylaxis: concise clinical guidance (sintesi linee guida Resuscitation Council UK 2021). 2022.</td></tr>
+      <tr><td>Takazawa T, Yamaura K, et al. Practical guidelines for the response to perioperative anaphylaxis. J Anesth. 2021;35:778-793.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="callout avoid">
+    <span class="lbl">Uso clinico</span>
+    Strumento di consultazione rapida per uso professionale: non sostituisce il giudizio clinico n&eacute; i protocolli locali. In un'emergenza reale, seguire sempre i protocolli aziendali e le procedure ALS/ACLS in vigore.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>App di riferimento clinico &mdash; uso professionale. Verificare sempre i protocolli locali e le procedure di emergenza in vigore presso la propria struttura.</div>
+</footer>
+
+<script>
+const MH_AVOID = [
+  {name:"Tutti gli alogenati", tag:"sevoflurano, isoflurano, desflurano, alotano (storico)", desc:"Farmaci trigger primari della crisi ipermetabolica: evitare sempre in un paziente MH-suscettibile."},
+  {name:"Succinilcolina", tag:"depolarizzante", desc:"Secondo farmaco trigger classico, spesso associato a rigidit&agrave; massetere come segno precoce."}
+];
+const MH_SAFE = [
+  {name:"Tutti gli endovenosi", tag:"propofol, tiopentale, etomidate, ketamina, benzodiazepine", desc:"Nessun potenziale trigger: tecnica TIVA di prima scelta."},
+  {name:"Curari non depolarizzanti", tag:"rocuronio, vecuronio, atracurio, cisatracurio", desc:"Sicuri, da preferire alla succinilcolina."},
+  {name:"Oppioidi", tag:"tutti", desc:"Nessuna controindicazione."},
+  {name:"Anestetici locali", tag:"tutti, amidici ed esterei", desc:"Nessuna restrizione: l'anestesia loco-regionale &egrave; anzi la tecnica di prima scelta quando applicabile."},
+  {name:"Protossido d'azoto", tag:"N2O", desc:"Non trigger, utilizzabile."}
+];
+
+const LA_DOSES = [
+  {name:"Lidocaina", plainMgKg:4.5, plainMax:300, epiMgKg:7, epiMax:500},
+  {name:"Mepivacaina", plainMgKg:4.5, plainMax:400, epiMgKg:7, epiMax:500},
+  {name:"Bupivacaina", plainMgKg:2, plainMax:175, epiMgKg:2.5, epiMax:225},
+  {name:"Levobupivacaina", plainMgKg:2, plainMax:150, epiMgKg:2.5, epiMax:200},
+  {name:"Ropivacaina", plainMgKg:3, plainMax:200, epiMgKg:3.5, epiMax:250},
+  {name:"Prilocaina", plainMgKg:6, plainMax:400, epiMgKg:8, epiMax:600},
+  {name:"Cloroprocaina", plainMgKg:11, plainMax:800, epiMgKg:14, epiMax:1000}
+];
+
+function drugList(arr){
+  return arr.map(d=>`
+    <div class="drug-card">
+      <div class="drug-head" onclick="this.parentElement.classList.toggle('open')">
+        <div><div class="drug-name">${d.name}</div><div class="drug-tag">${d.tag}</div></div>
+        <div class="chev">&#9656;</div>
+      </div>
+      <div class="drug-body"><p class="note" style="margin-top:0;">${d.desc}</p></div>
+    </div>`).join("");
+}
+
+document.getElementById("mh-avoid-list").innerHTML = drugList(MH_AVOID);
+document.getElementById("mh-safe-list").innerHTML = drugList(MH_SAFE);
+
+const lastDrugSel = document.getElementById("last-drug");
+lastDrugSel.innerHTML = LA_DOSES.map(d=>`<option value="${d.name}">${d.name}</option>`).join("");
+
+document.getElementById("last-table-body").innerHTML = LA_DOSES.map(d=>`
+  <tr>
+    <td class="hi">${d.name}</td>
+    <td>${d.plainMgKg} mg/kg (max ${d.plainMax} mg)</td>
+    <td>${d.epiMgKg} mg/kg (max ${d.epiMax} mg)</td>
+  </tr>
+`).join("");
+
+function calcLipidEmulsion(weightKg){
+  if(weightKg>=70){
+    return `Bolo 100 mL EV in 2&ndash;3 min, poi infusione 200&ndash;250 mL in 15&ndash;20 min (peso &ge;70 kg: dose fissa, non pesodipendente)`;
+  } else {
+    const bolusMl = (weightKg*1.5).toFixed(0);
+    const infRate = (weightKg*0.25).toFixed(1);
+    return `Bolo ${bolusMl} mL EV (1,5 mL/kg) in 2&ndash;3 min, poi infusione a ${infRate} mL/min (0,25 mL/kg/min)`;
+  }
+}
+
+function renderLastCalc(){
+  const drugName = lastDrugSel.value;
+  const d = LA_DOSES.find(x=>x.name===drugName);
+  const weight = parseFloat(document.getElementById("last-weight").value) || 0;
+  const conc = parseFloat(document.getElementById("last-conc").value) || 0;
+  const epi = document.getElementById("last-epi").value === "epi";
+  const out = document.getElementById("last-result");
+  if(!d || weight<=0 || conc<=0){ out.innerHTML = ""; return; }
+
+  const mgKg = epi ? d.epiMgKg : d.plainMgKg;
+  const maxAbs = epi ? d.epiMax : d.plainMax;
+  const doseByWeight = weight * mgKg;
+  const finalDose = Math.min(doseByWeight, maxAbs);
+  const mgPerMl = conc * 10;
+  const volumeMl = finalDose / mgPerMl;
+  const limitedByAbs = doseByWeight > maxAbs;
+
+  out.innerHTML = `
+    <div class="callout ok">
+      <span class="lbl">${d.name} ${epi ? "(con adrenalina)" : "(senza adrenalina)"} &mdash; ${weight} kg</span>
+      <strong>Dose massima: ${finalDose.toFixed(1)} mg</strong> (${mgKg} mg/kg${limitedByAbs ? `, limitata dal tetto assoluto di ${maxAbs} mg` : ""})<br>
+      <strong>Volume massimo alla concentrazione scelta (${conc}%): ${volumeMl.toFixed(1)} mL</strong>
+    </div>
+    <div class="callout last">
+      <span class="lbl">Se dovesse servire: emulsione lipidica 20% per questo peso</span>
+      ${calcLipidEmulsion(weight)}
+    </div>
+  `;
+}
+[lastDrugSel, document.getElementById("last-weight"), document.getElementById("last-conc"), document.getElementById("last-epi")]
+  .forEach(el=>el.addEventListener("input", renderLastCalc));
+renderLastCalc();
+
+const tabs = document.querySelectorAll("nav.tabs button");
+tabs.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    tabs.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll("section.view").forEach(v=>v.classList.remove("active"));
+    document.getElementById("view-"+btn.dataset.view).classList.add("active");
+    window.scrollTo({top:0,behavior:"instant"});
+  });
+});
+</script>
+</body>
+</html>
