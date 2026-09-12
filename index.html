@@ -95,6 +95,8 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
       <button data-view="mh">Ipertermia maligna</button>
       <button data-view="last">Tossicit&agrave; LA (LAST)</button>
       <button data-view="ana">Anafilassi</button>
+      <button data-view="tiro">Crisi tireotossica</button>
+      <button data-view="surr">Crisi surrenalica</button>
       <button data-view="refs">Bibliografia</button>
     </nav>
   </div>
@@ -115,6 +117,8 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
         <tr><td class="hi">Ipertermia maligna</td><td>Ipercapnia inspiegata, tachicardia, rigidit&agrave; muscolare, febbre (spesso tardiva)</td><td>Dantrolene EV 2&ndash;2,5 mg/kg, sospensione del trigger, raffreddamento</td></tr>
         <tr><td class="hi">Tossicit&agrave; da LA (LAST)</td><td>Prodromi neurologici (intorpidimento periorale, tinnito) poi convulsioni e/o collasso cardiovascolare</td><td>Emulsione lipidica 20% EV, ACLS modificato</td></tr>
         <tr><td class="hi">Anafilassi</td><td>Ipotensione refrattaria e/o broncospasmo, spesso con eritema/orticaria, entro minuti da un farmaco/lattice/clorexidina</td><td>Adrenalina IM o EV titolata, fluidi EV aggressivi</td></tr>
+        <tr><td class="hi">Crisi tireotossica</td><td>Tachicardia refrattaria inspiegata (spesso l'unico segno in anestesia generale), ipertermia, talvolta in paziente non noto ipertiroideo</td><td>Beta-blocco (esmololo), tionamide, iodio dopo 1h, steroide, raffreddamento</td></tr>
+        <tr><td class="hi">Crisi surrenalica acuta</td><td>Ipotensione persistente refrattaria a fluidi/vasopressori, spesso unico segno in anestesia generale</td><td>Idrocortisone 100 mg EV in bolo, non attendere la conferma di laboratorio</td></tr>
       </tbody>
     </table>
   </div>
@@ -292,6 +296,100 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
   </div>
 </section>
 
+<!-- ============ TIREOTOSSICA ============ -->
+<section class="view" id="view-tiro">
+  <div class="section-head">
+    <h2>Crisi tireotossica (thyroid storm)</h2>
+    <p>Esacerbazione acuta e pericolosa per la vita di una tireotossicosi non controllata, scatenata da uno stress fisiologico intenso (chirurgia, infezione, trauma). Mortalit&agrave; storicamente 8&ndash;25% se non riconosciuta e trattata tempestivamente.</p>
+  </div>
+
+  <div class="callout ana">
+    <span class="lbl">Il problema in anestesia</span>
+    Oltre la met&agrave; dei casi di crisi tireotossica perioperatoria segue una <strong>diagnosi preoperatoria mancata</strong> (Shao et al., BMC Anesthesiology 2024): il quadro tipico (agitazione, sudorazione, tremore) &egrave; mascherato dall'anestesia generale, e la crisi si presenta spesso come una <strong>tachicardia refrattaria inspiegata</strong>, con o senza ipertermia, in un paziente senza storia nota di ipertiroidismo.
+  </div>
+
+  <div class="section-head" style="margin-top:6px;"><h2>Fattori di rischio e sospetto clinico</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">Storia (anche non recente) di malattia di Graves, gozzo multinodulare tossico, terapia antitiroidea sospesa o mal seguita; anamnesi di palpitazioni, calo ponderale, intolleranza al caldo, ansia non altrimenti spiegata. In sala operatoria: tachicardia sinusale marcata e refrattaria alla profondit&agrave; anestesiologica, ipertermia, ipertensione seguita da possibile collasso cardiovascolare, aritmie (in particolare fibrillazione atriale).</p></div>
+
+  <div class="section-head"><h2>Diagnosi: Burch-Wartofsky Point Scale</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Disfunzione termoregolatoria</td><td>Punteggio crescente con la temperatura (da 37,2&ndash;37,7&deg;C fino a &ge;40&deg;C)</td></tr>
+      <tr><td class="hi">Effetti sul SNC</td><td>Assenti (0) &rarr; agitazione lieve &rarr; delirio/psicosi/letargia marcata &rarr; coma/convulsioni (punteggio massimo)</td></tr>
+      <tr><td class="hi">Disfunzione gastrointestinale/epatica</td><td>Assente (0) &rarr; diarrea/nausea/vomito/dolore addominale &rarr; ittero non altrimenti spiegato</td></tr>
+      <tr><td class="hi">Disfunzione cardiovascolare</td><td>Tachicardia crescente, presenza di scompenso cardiaco (da lieve a grave con edema polmonare), fibrillazione atriale</td></tr>
+      <tr><td class="hi">Storia di fattore precipitante</td><td>Presente = punti aggiuntivi (es. chirurgia, infezione, sospensione della terapia)</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note">Punteggio totale &ge;45: altamente suggestivo di crisi tireotossica conclamata. 25&ndash;44: crisi imminente. &lt;25: improbabile. In sala operatoria il sospetto clinico deve comunque guidare il trattamento immediato, senza attendere il calcolo formale del punteggio.</div>
+
+  <div class="section-head"><h2>Farmaci: cosa evitare</h2></div>
+  <div id="tiro-avoid-list"></div>
+  <div class="section-head"><h2>Farmaci considerati sicuri o preferibili</h2></div>
+  <div id="tiro-safe-list"></div>
+
+  <div class="section-head"><h2>Preoperatorio (chirurgia elettiva in paziente ipertiroideo noto)</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;">L'obiettivo classico &egrave; raggiungere l'eutiroidismo prima dell'intervento con tionamidi &plusmn; beta-bloccante &plusmn; iodio; proseguire la terapia antitiroidea domiciliare fino al giorno dell'intervento incluso. Una revisione sistematica (BJA 2021) segnala per&ograve; che l'evidenza a supporto di un reale effetto protettivo del trattamento preoperatorio &egrave; debole, e che la crisi pu&ograve; comunque verificarsi anche in pazienti trattati: questo non riduce l'importanza dell'ottimizzazione preoperatoria, ma giustifica un mantenimento della sorveglianza clinica intra e post-operatoria indipendentemente dallo stato tiroideo dichiarato.</p></div>
+
+  <div class="section-head"><h2>Trattamento della crisi conclamata</h2></div>
+  <div class="callout ana">
+    <span class="lbl">Protocollo di emergenza (sequenza tipica)</span>
+    <strong>1. Beta-blocco</strong>: esmololo (bolo 250&ndash;500 mcg/kg, poi infusione 50&ndash;300 mcg/kg/min, facilmente titolabile) o propranololo 1 mg EV ogni 10&ndash;15 minuti fino a FC &lt;100 bpm.<br>
+    <strong>2. Tionamide</strong>: propiltiouracile (dose di carico 500&ndash;1000 mg, poi 250 mg ogni 4h &mdash; preferibile in crisi per il blocco aggiuntivo della conversione periferica T4&rarr;T3) o metimazolo 20&ndash;25 mg ogni 4h.<br>
+    <strong>3. Iodio inorganico</strong>: somministrare <strong>almeno 1 ora dopo</strong> la tionamide (mai prima, per evitare di fornire substrato a nuova sintesi ormonale) &mdash; soluzione satura di ioduro di potassio (SSKI) o soluzione di Lugol; litio carbonato come alternativa in caso di allergia allo iodio.<br>
+    <strong>4. Corticosteroide</strong>: idrocortisone 100 mg EV o desametasone 2&ndash;4 mg EV ogni 6h &mdash; blocca la conversione periferica T4&rarr;T3 e copre una possibile insufficienza surrenalica relativa concomitante.<br>
+    <strong>5. Supporto generale</strong>: raffreddamento attivo per l'ipertermia (<strong>evitare l'aspirina</strong> come antipiretico &mdash; vedi sopra), fluidi EV, correzione elettrolitica, supporto emodinamico. Identificare e trattare il fattore scatenante.
+  </div>
+</section>
+
+<!-- ============ SURRENALICA ============ -->
+<section class="view" id="view-surr">
+  <div class="section-head">
+    <h2>Crisi surrenalica acuta (Addisonian/adrenal crisis)</h2>
+    <p>Scompenso acuto e pericoloso per la vita da produzione di cortisolo insufficiente a fronteggiare uno stress fisiologico (chirurgia, infezione, trauma), in pazienti con insufficienza surrenalica primaria o secondaria nota, oppure con soppressione dell'asse ipotalamo-ipofisi-surrene (HPA) non riconosciuta da terapia steroidea cronica.</p>
+  </div>
+
+  <div class="callout ana">
+    <span class="lbl">Il problema in anestesia</span>
+    I segni classici (nausea, dolore addominale, confusione, astenia) sono <strong>assenti nel paziente anestetizzato</strong>. Il segno guida in sala operatoria &egrave; un'<strong>ipotensione persistente, sproporzionata e refrattaria</strong> a fluidi e vasopressori, spesso l'unico indizio disponibile.
+  </div>
+
+  <div class="section-head" style="margin-top:6px;"><h2>Stratificazione del rischio (chi necessita di copertura steroidea)</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Rischio elevato</td><td>Insufficienza surrenalica 2&deg;aria documentata (test all'ACTH); terapia con glucocorticoide equivalente a &gt;20 mg/die di prednisone per &gt;3 settimane; segni clinici di sindrome di Cushing &rarr; copertura steroidea perioperatoria basata sull'entit&agrave; dello stress chirurgico</td></tr>
+      <tr><td class="hi">Rischio basso</td><td>Glucocorticoide a qualsiasi dose per &lt;3 settimane; prednisone &le;5 mg/die al mattino; prednisone 10 mg a giorni alterni &rarr; copertura non necessaria salvo segni clinici di soppressione dell'asse</td></tr>
+      <tr><td class="hi">Rischio intermedio</td><td>Terapia cronica con dose tra 5 e 20 mg/die di prednisone equivalente, non classificabile nelle categorie precedenti &rarr; considerare test preoperatorio della funzione dell'asse HPA; decisione caso per caso in base al rischio chirurgico</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="section-head"><h2>Dosaggio di copertura steroidea (stress dose), in base al rischio chirurgico</h2></div>
+  <div class="tbl-wrap">
+    <table><tbody>
+      <tr><td class="hi">Chirurgia minore / anestesia locale</td><td>Proseguire la dose abituale; idrocortisone 25 mg EV solo al bisogno</td></tr>
+      <tr><td class="hi">Chirurgia a rischio moderato</td><td>Idrocortisone 50 mg EV ogni 8h per 3 dosi (o 50 mg all'induzione seguiti da riduzione progressiva in base al decorso)</td></tr>
+      <tr><td class="hi">Chirurgia ad alto rischio / maggiore</td><td>Idrocortisone 100 mg EV ogni 8h per 3 dosi, oppure bolo 100 mg seguito da infusione continua 200 mg/24h, con riduzione progressiva secondo il decorso clinico</td></tr>
+    </tbody></table>
+  </div>
+  <div class="note">Fonti concordanti: linea guida congiunta ESE/Endocrine Society 2024 e linea guida Association of Anaesthetists/RCP/Society for Endocrinology UK (Woodcock et al., Anaesthesia 2020).</div>
+
+  <div class="section-head"><h2>Farmaci: cautele specifiche</h2></div>
+  <div id="surr-avoid-list"></div>
+  <div class="section-head"><h2>Farmaci e strategie sicure</h2></div>
+  <div id="surr-safe-list"></div>
+
+  <div class="section-head"><h2>Trattamento della crisi conclamata</h2></div>
+  <div class="callout ana">
+    <span class="lbl">Protocollo di emergenza</span>
+    <strong>1. Idrocortisone 100 mg EV in bolo immediato</strong> &mdash; il trattamento &egrave; anche diagnostico: <strong>non attendere</strong> la conferma di laboratorio (cortisolo/ACTH) se il sospetto clinico &egrave; ragionevole.<br>
+    <strong>2. Idrocortisone 200 mg/24h in infusione continua</strong> (in alternativa, boli di 50 mg EV/IM ogni 6h), con successiva riduzione progressiva in base alla stabilizzazione clinica.<br>
+    <strong>3. Fluidi EV</strong>: soluzione fisiologica, con aggiunta di glucosio per l'ipoglicemia frequentemente associata.<br>
+    <strong>4. Correggere</strong> iperpotassiemia e iponatriemia se presenti (tipiche dell'insufficienza mineralcorticoide nella forma primaria).<br>
+    <strong>5. Identificare e trattare il fattore precipitante</strong> (infezione, interruzione della terapia steroidea, stress chirurgico non coperto).<br>
+    Non &egrave; necessaria supplementazione mineralcorticoide acuta aggiuntiva: l'idrocortisone ad alte dosi possiede gi&agrave; un'attivit&agrave; mineralcorticoide sufficiente.
+  </div>
+</section>
+
 <!-- ============ REFS ============ -->
 <section class="view" id="view-refs">
   <div class="section-head"><h2>Bibliografia principale</h2></div>
@@ -307,6 +405,14 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
       <tr><td>Perioperative anaphylaxis: pathophysiology, clinical presentation and management. BJA Education. 2019.</td></tr>
       <tr><td>Emergency treatment of anaphylaxis: concise clinical guidance (sintesi linee guida Resuscitation Council UK 2021). 2022.</td></tr>
       <tr><td>Takazawa T, Yamaura K, et al. Practical guidelines for the response to perioperative anaphylaxis. J Anesth. 2021;35:778-793.</td></tr>
+      <tr><td><strong>Crisi tireotossica:</strong> Shao L, et al. Thyroid storm in a patient with unknown hyperthyroidism during nonthyroidal surgery: a case report and literature review. BMC Anesthesiology. 2024.</td></tr>
+      <tr><td>Risk of perioperative thyroid storm in hyperthyroid patients: a systematic review. Br J Anaesth. 2021.</td></tr>
+      <tr><td>Thyroid storm during the recovery phase after non-thyroid surgery in a hyperthyroid patient: case report and literature review. 2025.</td></tr>
+      <tr><td>Hyperthyroidism/thyroid storm. NYSORA Anesthesiology Manual. Aggiornato 2026.</td></tr>
+      <tr><td><strong>Crisi surrenalica acuta:</strong> Beuschlein F, et al. European Society of Endocrinology and Endocrine Society Joint Clinical Guideline: Diagnosis and therapy of glucocorticoid-induced adrenal insufficiency. J Clin Endocrinol Metab. 2024.</td></tr>
+      <tr><td>Woodcock T, et al. Guidelines for the management of glucocorticoids during the peri-operative period for patients with adrenal insufficiency: Association of Anaesthetists, RCP, Society for Endocrinology UK. Anaesthesia. 2020.</td></tr>
+      <tr><td>Adrenal Insufficiency and Perioperative Corticosteroids. OpenAnesthesia. Aggiornato 2024.</td></tr>
+      <tr><td>Perioperative steroids. NYSORA Anesthesiology Manual. Aggiornato 2026.</td></tr>
     </tbody></table>
   </div>
   <div class="callout avoid">
@@ -344,7 +450,34 @@ const LA_DOSES = [
   {name:"Cloroprocaina", plainMgKg:11, plainMax:800, epiMgKg:14, epiMax:1000}
 ];
 
-function drugList(arr){
+const TIRO_AVOID = [
+  {name:"Atropina", tag:"anticolinergico, in premedicazione se sospetto ipertiroidismo", desc:"Riduce la sudorizzazione (segno clinico utile per il monitoraggio) e aumenta ulteriormente la frequenza cardiaca: da evitare come anticolinergico di routine se il sospetto di tireotossicosi non controllata &egrave; presente."},
+  {name:"Ketamina", tag:"induzione/analgesia", desc:"Effetto simpaticomimetico diretto: pu&ograve; precipitare o aggravare una crisi tireotossica latente."},
+  {name:"Aspirina", tag:"antipiretico/analgesico", desc:"Sposta la tiroxina dalla globulina legante (TBG), aumentando la quota di T4 libero circolante: da evitare per il controllo della febbre, preferire il paracetamolo."},
+  {name:"Efedrina e simpaticomimetici indiretti", tag:"vasopressori", desc:"Possono amplificare lo stato ipercatecolaminergico: preferire, se necessario un supporto pressorio, farmaci ad azione diretta con attenta titolazione."},
+  {name:"Pancuronio", tag:"curaro vagolitico", desc:"L'effetto tachicardizzante &egrave; sfavorevole in un paziente gi&agrave; tachicardico o a rischio di esserlo."}
+];
+const TIRO_SAFE = [
+  {name:"Midazolam e benzodiazepine", tag:"premedicazione/sedazione", desc:"Preferite per una sedazione adeguata in premedicazione, come raccomandato per ridurre il rischio di scatenare una crisi all'induzione."},
+  {name:"Propofol", tag:"induzione/mantenimento", desc:"Nessuna controindicazione specifica riportata."},
+  {name:"Oppioidi standard", tag:"fentanyl, sufentanil, remifentanil", desc:"Utilizzabili senza restrizioni specifiche; utili per smorzare la risposta simpatica alla laringoscopia."},
+  {name:"Esmololo", tag:"beta-bloccante titolabile", desc:"Preferibile per la rapida titolabilit&agrave; e l'emivita breve nel controllo acuto della frequenza cardiaca."},
+  {name:"Paracetamolo", tag:"antipiretico", desc:"Da preferire all'aspirina per il controllo della febbre in questo contesto."},
+  {name:"Curari non depolarizzanti privi di effetto vagolitico", tag:"rocuronio, vecuronio, cisatracurio", desc:"Preferibili al pancuronio."}
+];
+
+const SURR_AVOID = [
+  {name:"Etomidate", tag:"induzione, cautela non controindicazione assoluta", desc:"Anche in bolo singolo inibisce transitoriamente la sintesi surrenalica di cortisolo (blocco della 11-&beta;-idrossilasi), con effetto misurabile per 24-48h: da usare con cautela nei pazienti gi&agrave; a rischio di insufficienza surrenalica, valutando alternative."},
+  {name:"Sospensione improvvisa della terapia steroidea cronica", tag:"non un farmaco, ma un errore da evitare", desc:"Non interrompere mai bruscamente il glucocorticoide domiciliare in perioperatorio: proseguire la dose abituale e aggiungere la copertura da stress secondo il rischio chirurgico."},
+  {name:"Ritardare l'idrocortisone in attesa di conferma di laboratorio", tag:"errore procedurale, non farmacologico", desc:"In caso di sospetto clinico di crisi surrenalica, il trattamento con idrocortisone va iniziato immediatamente: attendere cortisolo/ACTH prima di trattare pu&ograve; essere fatale."}
+];
+const SURR_SAFE = [
+  {name:"Idrocortisone", tag:"trattamento cardine, anche diagnostico", desc:"Sicuro e da somministrare precocemente; la risposta clinica alla somministrazione supporta indirettamente la diagnosi senza bisogno di attendere la conferma laboratoristica."},
+  {name:"Propofol, oppioidi standard, curari non depolarizzanti", tag:"tecnica anestesiologica generale", desc:"Nessuna controindicazione specifica riportata al di fuori della cautela sull'etomidate."},
+  {name:"Fluidi EV con glucosio", tag:"soluzione fisiologica + destrosio", desc:"Corregge sia l'ipovolemia sia l'ipoglicemia tipicamente associata alla crisi surrenalica."}
+];
+
+
   return arr.map(d=>`
     <div class="drug-card">
       <div class="drug-head" onclick="this.parentElement.classList.toggle('open')">
@@ -357,6 +490,10 @@ function drugList(arr){
 
 document.getElementById("mh-avoid-list").innerHTML = drugList(MH_AVOID);
 document.getElementById("mh-safe-list").innerHTML = drugList(MH_SAFE);
+document.getElementById("tiro-avoid-list").innerHTML = drugList(TIRO_AVOID);
+document.getElementById("tiro-safe-list").innerHTML = drugList(TIRO_SAFE);
+document.getElementById("surr-avoid-list").innerHTML = drugList(SURR_AVOID);
+document.getElementById("surr-safe-list").innerHTML = drugList(SURR_SAFE);
 
 const lastDrugSel = document.getElementById("last-drug");
 lastDrugSel.innerHTML = LA_DOSES.map(d=>`<option value="${d.name}">${d.name}</option>`).join("");
