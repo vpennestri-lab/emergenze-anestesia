@@ -89,7 +89,7 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
   <div class="top-inner">
     <p class="eyebrow">Riferimento clinico &mdash; Anestesia &amp; Terapia Intensiva</p>
     <h1 class="title">Emergenze in Anestesia</h1>
-    <p class="subtitle">Diagnosi e trattamento di tre emergenze acute perioperatorie: ipertermia maligna, tossicit&agrave; sistemica da anestetici locali e anafilassi.</p>
+    <p class="subtitle">Diagnosi e trattamento di cinque emergenze acute perioperatorie: ipertermia maligna, tossicit&agrave; sistemica da anestetici locali, anafilassi, crisi tireotossica e crisi surrenalica acuta.</p>
     <nav class="tabs" id="tabs">
       <button data-view="home" class="active">Panoramica</button>
       <button data-view="mh">Ipertermia maligna</button>
@@ -107,8 +107,8 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
 <!-- ============ HOME ============ -->
 <section class="view active" id="view-home">
   <div class="section-head">
-    <h2>Tre emergenze, tre presentazioni diverse</h2>
-    <p>Ipertermia maligna, tossicit&agrave; da anestetici locali e anafilassi sono le tre emergenze farmacologiche acute pi&ugrave; caratteristiche della sala operatoria: rare, potenzialmente fatali, e ciascuna con un trattamento specifico che va conosciuto a memoria perch&eacute; il tempo di reazione &egrave; decisivo.</p>
+    <h2>Cinque emergenze, cinque presentazioni diverse</h2>
+    <p>Ipertermia maligna, tossicit&agrave; da anestetici locali, anafilassi, crisi tireotossica e crisi surrenalica acuta sono tra le emergenze farmacologiche acute pi&ugrave; caratteristiche della sala operatoria: rare, potenzialmente fatali, e ciascuna con un trattamento specifico che va conosciuto a memoria perch&eacute; il tempo di reazione &egrave; decisivo.</p>
   </div>
   <div class="tbl-wrap">
     <table>
@@ -124,7 +124,7 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
   </div>
   <div class="callout avoid">
     <span class="lbl">Diagnosi differenziale</span>
-    Le tre condizioni, e altre cause di instabilit&agrave; acuta intraoperatoria (emorragia occulta, pneumotorace iperteso, embolia polmonare/gassosa/adiposa, reazione trasfusionale, ischemia miocardica, guasto del circuito anestesiologico), possono presentarsi in modo simile: instabilit&agrave; emodinamica improvvisa. La tempistica rispetto alla somministrazione di un farmaco/trigger specifico &egrave; spesso l'indizio pi&ugrave; utile per orientare la diagnosi in acuto.
+    Queste cinque condizioni, e altre cause di instabilit&agrave; acuta intraoperatoria (emorragia occulta, pneumotorace iperteso, embolia polmonare/gassosa/adiposa, reazione trasfusionale, ischemia miocardica, guasto del circuito anestesiologico), possono presentarsi in modo simile: instabilit&agrave; emodinamica improvvisa. La tempistica rispetto alla somministrazione di un farmaco/trigger specifico &egrave; spesso l'indizio pi&ugrave; utile per orientare la diagnosi in acuto.
   </div>
 </section>
 
@@ -478,6 +478,7 @@ const SURR_SAFE = [
 ];
 
 
+function drugList(arr){
   return arr.map(d=>`
     <div class="drug-card">
       <div class="drug-head" onclick="this.parentElement.classList.toggle('open')">
