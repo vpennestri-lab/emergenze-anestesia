@@ -446,7 +446,7 @@ const LA_DOSES = [
   {name:"Bupivacaina", plainMgKg:2, plainMax:175, epiMgKg:2.5, epiMax:225},
   {name:"Levobupivacaina", plainMgKg:2, plainMax:150, epiMgKg:2.5, epiMax:200},
   {name:"Ropivacaina", plainMgKg:3, plainMax:200, epiMgKg:3.5, epiMax:250},
-  {name:"Prilocaina", plainMgKg:6, plainMax:400, epiMgKg:8, epiMax:600},
+  {name:"Prilocaina", plainMgKg:6, plainMax:400, epiMgKg:8, epiMax:600, warn:"La prilocaina induce metemoglobinemia: <strong>evitarla nel deficit di G6PD (favismo)</strong>, dove la metemoglobinemia non &egrave; trattabile con il blu di metilene (inefficace e potenzialmente emolitico). Preferire la bupivacaina o un altro anestetico locale."},
   {name:"Cloroprocaina", plainMgKg:11, plainMax:800, epiMgKg:14, epiMax:1000}
 ];
 
@@ -540,6 +540,7 @@ function renderLastCalc(){
       <strong>Dose massima: ${finalDose.toFixed(1)} mg</strong> (${mgKg} mg/kg${limitedByAbs ? `, limitata dal tetto assoluto di ${maxAbs} mg` : ""})<br>
       <strong>Volume massimo alla concentrazione scelta (${conc}%): ${volumeMl.toFixed(1)} mL</strong>
     </div>
+    ${d.warn ? `<div class="callout avoid"><span class="lbl">Avvertenza</span>${d.warn}</div>` : ""}
     <div class="callout last">
       <span class="lbl">Se dovesse servire: emulsione lipidica 20% per questo peso</span>
       ${calcLipidEmulsion(weight)}
