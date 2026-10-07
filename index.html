@@ -150,12 +150,82 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
   <div class="callout mh">
     <span class="lbl">Protocollo di emergenza</span>
     <strong>1.</strong> Interrompere immediatamente il farmaco trigger, chiamare aiuto, iperventilare con O&#8322; 100% ad alto flusso.<br>
-    <strong>2.</strong> <strong>Dantrolene EV 2&ndash;2,5 mg/kg in bolo</strong> (EMHG 2024), ripetibile a 1 mg/kg ogni 5&ndash;10 min fino a controllo dei sintomi (dose cumulativa fino a 10 mg/kg).<br>
+    <strong>2.</strong> <strong>Dantrolene EV 2&ndash;2,5 mg/kg in bolo</strong> (EMHG 2024), ripetibile a 1 mg/kg ogni 5&ndash;10 min fino a controllo dei sintomi (dose cumulativa fino a 10 mg/kg). Per preparazione e dose in mg/mL del prodotto Agilus&reg; vedere la scheda prodotto in fondo a questa sezione.<br>
     <strong>3.</strong> Raffreddamento attivo (liquidi EV freddi, superficie corporea), evitando l'ipotermia iatrogena.<br>
     <strong>4.</strong> Trattare l'iperpotassiemia (calcio, glucosio/insulina, bicarbonato) e le aritmie con farmaci standard, <strong>evitando i calcio-antagonisti</strong> (interazione pericolosa con il dantrolene).<br>
     <strong>5.</strong> Monitorare emogasanalisi, CK, mioglobina, coagulazione (rischio CID); ricovero in Terapia Intensiva per almeno 24h per il rischio di recrudescenza.<br>
     Dopo l'evento: referral per test diagnostico (contrattura in vitro/genetica) del paziente e dei familiari.
   </div>
+  <div class="section-head" style="margin-top:30px;"><h2>Scheda prodotto: AGILUS&reg; (dantrolene sodico 120 mg)</h2>
+    <p>Polvere per soluzione iniettabile in flaconcini da 120 mg di dantrolene sodico emieptaidrato, solo per uso endovenoso. Indicato, insieme alle misure di supporto, nel trattamento dell'ipertermia maligna in adulti e bambini di ogni et&agrave;. Fonte: Riassunto delle Caratteristiche del Prodotto (Norgine B.V., EU/1/24/1805/001-002, testo del 29/05/2024). Classe di fornitura OSP (uso ospedaliero). Se in reparto &egrave; disponibile un altro prodotto a base di dantrolene, seguire la sua scheda tecnica: concentrazioni e volumi di ricostituzione sono diversi.</p>
+  </div>
+
+  <div class="section-head"><h2>Dosaggio (da RCP)</h2></div>
+  <div class="callout mh">
+    <span class="lbl">Dose iniziale e ripetizioni</span>
+    <strong>2,5 mg/kg per via endovenosa in bolo rapido</strong>, negli adulti e nei bambini (nessun aggiustamento pediatrico). Finch&eacute; persistono tachicardia, ipoventilazione, acidosi prolungata (monitorare pH e pCO&#8322;) e ipertermia, <strong>ripetere il bolo di 2,5 mg/kg ogni 10 minuti</strong> fino al miglioramento delle anomalie fisiologiche e metaboliche. Se si prende in considerazione una dose cumulativa &ge;10 mg/kg, <strong>rivalutare la diagnosi</strong> di ipertermia maligna.<br>
+    <strong>Tetto assoluto</strong>: per qualsiasi peso corporeo la dose iniziale e le eventuali dosi ripetute non devono superare <strong>300 mg</strong> (2,5 flaconcini).<br>
+    <strong>Recrudescenza</strong>: si stima nel 10&ndash;15% dei pazienti, di norma entro le prime 24 ore, pi&ugrave; probabile nei casi gravi. Ripetere 2,5 mg/kg ogni 10 minuti fino a regressione dei segni.
+  </div>
+  <div class="callout avoid">
+    <span class="lbl">Schemi di ripetizione diversi</span>
+    Lo schema di ripetizione del RCP (2,5 mg/kg ogni 10 min) &egrave; diverso da quello riportato nel protocollo di emergenza sopra (1 mg/kg ogni 5&ndash;10 min, EMHG 2024). La dose iniziale coincide (2,5 mg/kg): per le ripetizioni seguire il protocollo del proprio centro.
+  </div>
+
+  <div class="tool">
+    <h3>Calcolatore: dose, flaconcini e volume</h3>
+    <div class="field">
+      <label for="agilus-weight">Peso del paziente (kg)</label>
+      <input type="number" id="agilus-weight" min="1" max="250" step="0.5" value="70">
+    </div>
+    <div class="result" id="agilus-result"></div>
+    <p class="note">I volumi sono arrotondati per difetto a 0,1 mL, come nella tabella del RCP (soluzione ricostituita: 22,6 mL per flaconcino, circa 5,3 mg/mL).</p>
+  </div>
+
+  <div class="section-head"><h2>Esempi di dosaggio (tabella del RCP)</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Flaconcini da preparare</th><th>Peso</th><th>Dose (2,5 mg/kg)</th><th>Volume</th></tr></thead>
+      <tbody>
+        <tr><td class="hi" rowspan="5">1 (fino a 48 kg)</td><td>3 kg</td><td>7,5 mg</td><td>1,4 mL</td></tr>
+        <tr><td>6 kg</td><td>15 mg</td><td>2,8 mL</td></tr>
+        <tr><td>12 kg</td><td>30 mg</td><td>5,6 mL</td></tr>
+        <tr><td>24 kg</td><td>60 mg</td><td>11,3 mL</td></tr>
+        <tr><td>48 kg</td><td>120 mg</td><td>22,6 mL</td></tr>
+        <tr><td class="hi" rowspan="2">2 (49&ndash;96 kg)</td><td>72 kg</td><td>180 mg</td><td>33,9 mL</td></tr>
+        <tr><td>96 kg</td><td>240 mg</td><td>45,2 mL</td></tr>
+        <tr><td class="hi" rowspan="2">3 (da 97 kg)</td><td>120 kg</td><td>300 mg</td><td>56,5 mL</td></tr>
+        <tr><td>144 kg</td><td>300 mg (tetto)</td><td>56,5 mL</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head"><h2>Preparazione e somministrazione</h2></div>
+  <div class="callout ok">
+    <span class="lbl">Passaggi</span>
+    <strong>1.</strong> Per <strong>ogni flaconcino</strong> aggiungere <strong>20 mL di acqua per preparazioni iniettabili</strong> (nessun altro solvente).<br>
+    <strong>2.</strong> Agitare per circa <strong>1 minuto</strong> fino a completa dissoluzione; se serve, agitare ancora. La soluzione deve essere giallo-arancio e priva di particelle. Volume finale <strong>22,6 mL</strong> per flaconcino, pH 9,5.<br>
+    <strong>3.</strong> Preparare subito il numero di flaconcini necessario alla dose iniziale (tabella o calcolatore sopra) e somministrare in <strong>bolo endovenoso rapido</strong>.<br>
+    <strong>4.</strong> <strong>Non miscelare</strong> con altre soluzioni e non somministrare dallo stesso accesso venoso di altri farmaci.<br>
+    <strong>5.</strong> Usare per via endovenosa soltanto: <strong>evitare lo stravaso</strong> (il pH elevato pu&ograve; causare necrosi dei tessuti) e le <strong>iniezioni intra-arteriose</strong> (rischio di occlusione vascolare). In caso di contatto con la cute, lavare con acqua abbondante.<br>
+    <strong>6.</strong> Monouso. Per ragioni microbiologiche la soluzione va usata subito; se non lo &egrave; stata, resta stabile al massimo 24 ore a non pi&ugrave; di 25 &deg;C, al riparo dalla luce, senza refrigerare. Il residuo va eliminato.
+  </div>
+  <div class="card"><p class="note" style="margin-top:0;"><strong>Tempi di preparazione</strong> (studi del RCP): ricostituire un flaconcino da 120 mg ha richiesto in media 50 secondi, contro 90 secondi per un flaconcino da 20 mg di dantrolene convenzionale. In una simulazione di laboratorio, preparare e somministrare un flaconcino ha richiesto 1 min 53 s con cannula per adulti (3 min per il flaconcino da 20 mg) e 1 min 57 s con cannula pediatrica (4 min 2 s). <strong>Conservazione del flaconcino chiuso</strong>: validit&agrave; 3 anni, nessuna temperatura particolare, conservare nell'imballaggio esterno per proteggerlo dalla luce.</p></div>
+
+  <div class="section-head"><h2>Controindicazioni e avvertenze</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;"><strong>Controindicazione</strong>: ipersensibilit&agrave; al principio attivo o agli eccipienti (idrossipropil betadex, macrogol).<br>
+  <strong>Calcio-antagonisti</strong> (verapamil, diltiazem): uso concomitante non raccomandato (insufficienza cardiaca; negli studi sull'animale aumento del potassio sierico). Prudenza in caso di iperpotassiemia in atto (insufficienza renale, intossicazione digitalica).<br>
+  <strong>Miorilassanti non depolarizzanti</strong> (es. vecuronio): l'effetto pu&ograve; essere potenziato.<br>
+  <strong>Idrossipropil betadex</strong> (3530 mg per flaconcino, 156,2 mg/mL nella soluzione): ciclodestrina associata a ototossicit&agrave; negli studi sull'animale; casi di compromissione dell'udito, per lo pi&ugrave; transitori e lievi, a esposizioni corrispondenti alle dosi pi&ugrave; alte. Per dosi superiori a 10 mg/kg la diagnosi va rivalutata. L'esposizione &egrave; maggiore nell'insufficienza renale, dove i rischi possono essere pi&ugrave; elevati; attenzione ai pazienti con rischio aumentato di perdita dell'udito (es. otiti ricorrenti o croniche). Ogni flaconcino contiene anche 6,9 mg di sodio.<br>
+  <strong>Fegato</strong>: danno epatico, anche fatale, descritto con la somministrazione orale cronica di dantrolene.<br>
+  <strong>Gravidanza</strong>: dati limitati; il dantrolene attraversa la placenta e va usato solo se il beneficio supera il rischio. Segnalate atonia uterina post partum e sindrome del bambino floscio nel neonato dopo somministrazione materna durante il taglio cesareo. <strong>Allattamento</strong>: interromperlo durante la somministrazione; si pu&ograve; riprendere 60 ore dopo l'ultima dose.<br>
+  <strong>Guida</strong>: debolezza muscolare, capogiri e lieve confusione possono persistere fino a 48 ore.</p></div>
+
+  <div class="section-head"><h2>Effetti indesiderati, sovradosaggio e dati di efficacia</h2></div>
+  <div class="card"><p class="note" style="margin-top:0;"><strong>Effetti indesiderati</strong> (frequenza non nota): il pi&ugrave; comune &egrave; la debolezza dei muscoli scheletrici, legata al meccanismo d'azione. Descritti anche ipersensibilit&agrave; e anafilassi, iperpotassiemia, insufficienza e depressione respiratoria, bradicardia, tachicardia e insufficienza cardiaca, tromboflebite, nausea, vomito, dolore addominale, capogiro, sonnolenza, cefalea, convulsioni e reazioni in sede di somministrazione. Alcuni eventi possono dipendere dalla crisi di ipertermia maligna stessa.<br>
+  <strong>Sovradosaggio</strong>: grave debolezza muscolare con depressione respiratoria; misure sintomatiche e di supporto. Non esiste un antidoto specifico e l'utilit&agrave; della dialisi non &egrave; nota.<br>
+  <strong>Farmacocinetica</strong>: emivita di eliminazione di 9&ndash;11 ore dopo dosi singole da 60 e 120 mg; legame alle proteine plasmatiche circa 95%; metabolismo epatico (il 5-idrossidantrolene &egrave; attivo).<br>
+  <strong>Efficacia</strong> (revisione retrospettiva 1979&ndash;2020 citata nel RCP; non sono stati condotti studi clinici su Agilus&reg;): negli adulti (116 pazienti) sopravvivenza 97%, dose mediana 2,4 mg/kg, 2,5 mg/kg sufficienti nel 58% dei casi, dose non superiore a 5 mg/kg nell'87% e a 10 mg/kg nel 95%. Nei pazienti pediatrici (91) sopravvivenza 96%, dose mediana 2&ndash;3 mg/kg, 2,5 mg/kg sufficienti nel 59%, dose non superiore a 5 mg/kg nell'89% e a 10 mg/kg nel 98%.</p></div>
 </section>
 
 <!-- ============ LAST ============ -->
@@ -397,6 +467,7 @@ footer{max-width:980px;margin:36px auto 0 auto;padding:18px 20px 0 20px;border-t
     <table><tbody>
       <tr><td><strong>Ipertermia maligna:</strong> Glahn KPE, et al. Recognition and management of a malignant hyperthermia crisis: updated 2024 guideline from the European Malignant Hyperthermia Group. Br J Anaesth. 2025;134:221-223.</td></tr>
       <tr><td>Consensus guidelines on perioperative management of malignant hyperthermia suspected or susceptible patients. European Malignant Hyperthermia Group. Br J Anaesth. 2020.</td></tr>
+      <tr><td>AGILUS&reg; 120 mg polvere per soluzione iniettabile (dantrolene sodico). Riassunto delle Caratteristiche del Prodotto. Norgine B.V., EU/1/24/1805/001-002, testo del 29/05/2024.</td></tr>
       <tr><td>Malignant Hyperthermia. StatPearls. NCBI Bookshelf. Aggiornato 2024-2025.</td></tr>
       <tr><td><strong>Tossicit&agrave; da anestetici locali (LAST):</strong> Neal JM, Neal EJ, Weinberg GL. American Society of Regional Anesthesia and Pain Medicine Local Anesthetic Systemic Toxicity checklist: 2020 version. Reg Anesth Pain Med. 2020.</td></tr>
       <tr><td>Local Anesthetic Recommended Doses (mg/kg). Table 1, in: Camfield AS, McCutchan A. Local Anesthetics in Children. StatPearls. Aggiornato 2023-2026.</td></tr>
@@ -550,6 +621,31 @@ function renderLastCalc(){
 [lastDrugSel, document.getElementById("last-weight"), document.getElementById("last-conc"), document.getElementById("last-epi")]
   .forEach(el=>el.addEventListener("input", renderLastCalc));
 renderLastCalc();
+
+function agilusVolume(mg){ return Math.floor(mg*22.6/120*10+1e-6)/10; }
+function renderAgilus(){
+  const w = parseFloat(document.getElementById("agilus-weight").value) || 0;
+  const out = document.getElementById("agilus-result");
+  if(w<=0){ out.innerHTML = ""; return; }
+  const raw = w*2.5;
+  const dose = Math.min(raw,300);
+  const capped = raw>300;
+  const vials = Math.ceil(dose/120 - 1e-9);
+  const vol = agilusVolume(dose);
+  const cumMg = w*10;
+  const cumVials = Math.ceil(cumMg/120 - 1e-9);
+  out.innerHTML = `
+    <div class="callout mh">
+      <span class="lbl">Agilus&reg; &mdash; ${w} kg</span>
+      <strong>Dose iniziale: ${+dose.toFixed(1)} mg</strong> (2,5 mg/kg${capped ? `, limitata al tetto assoluto di 300 mg` : ""})<br>
+      <strong>Flaconcini da ricostituire: ${vials}</strong> (${vials} &times; 20 mL di acqua per preparazioni iniettabili)<br>
+      <strong>Volume da somministrare: ${vol.toFixed(1)} mL</strong> (soluzione ricostituita, circa 5,3 mg/mL)<br>
+      Ripetere la stessa dose ogni 10 minuti finch&eacute; persistono i sintomi.<br>
+      Rivalutare la diagnosi se si considera una dose cumulativa &ge;10 mg/kg (= ${+cumMg.toFixed(0)} mg, circa ${cumVials} flaconcini).
+    </div>`;
+}
+document.getElementById("agilus-weight").addEventListener("input", renderAgilus);
+renderAgilus();
 
 const tabs = document.querySelectorAll("nav.tabs button");
 tabs.forEach(btn=>{
